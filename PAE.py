@@ -4,14 +4,14 @@ import torch.nn.functional as F
 from torch import nn
 
 class PAE(torch.nn.Module):
-    def __init__(self, input_dim):
+    def __init__(self, input_dim, dropout=0.2):
         super(PAE, self).__init__()
         hidden=128
         self.parser =nn.Sequential(
                 nn.Linear(input_dim, hidden, bias=True),
                 nn.ReLU(inplace=True),
                 nn.BatchNorm1d(hidden),
-                nn.Dropout(0.2),
+                nn.Dropout(dropout),
                 nn.Linear(hidden, hidden, bias=True),
                 )
         self.cos = nn.CosineSimilarity(dim=1, eps=1e-8)

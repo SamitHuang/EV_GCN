@@ -22,15 +22,12 @@ class EV_GCN(torch.nn.Module):
         cls_input_dim = sum(hidden) 
 
         self.cls = nn.Sequential(
-                nn.Dropout(dropout), 
                 torch.nn.Linear(cls_input_dim, 256),
                 torch.nn.ReLU(inplace=True),
                 nn.BatchNorm1d(256), 
-                nn.Dropout(dropout), 
                 torch.nn.Linear(256, num_classes))
 
         self.edge_net = PAE(input_dim=edgenet_input_dim//2, dropout=dropout)
-
         self.model_init()
 
     def model_init(self):
